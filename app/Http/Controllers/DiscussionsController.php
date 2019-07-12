@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class DiscussionsController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth')->only(['create', 'store']);
+    }
     /**
      * Display a listing of the resource.
      *
