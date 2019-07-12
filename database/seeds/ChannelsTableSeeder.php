@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Channel;
+use LaraForum\Channel;
 
 class ChannelsTableSeeder extends Seeder
 {
