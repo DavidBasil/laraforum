@@ -3,6 +3,8 @@
 namespace LaraForum\Http\Controllers;
 
 use Illuminate\Http\Request;
+use LaraForum\Http\Requests\CreateDiscussionRequest;
+use LaraForum\Discussion;
 
 class DiscussionsController extends Controller
 {
@@ -36,9 +38,13 @@ class DiscussionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDiscussionRequest $request)
     {
-        //
+        auth()->user()->discussions()->create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'channel_id' => $request->channel
+        ]);
     }
 
     /**
