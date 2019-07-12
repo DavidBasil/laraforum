@@ -19,7 +19,7 @@ class DiscussionsController extends Controller
      */
     public function index()
     {
-        //
+        return view('discussions.index', ['discussions' => Discussion::paginate(5)]);
     }
 
     /**
@@ -45,6 +45,9 @@ class DiscussionsController extends Controller
             'content' => $request->content,
             'channel_id' => $request->channel
         ]);
+
+        return redirect()->route('discussions.index')
+            ->with('success', 'Discussion posted');
     }
 
     /**
