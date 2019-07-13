@@ -5,7 +5,7 @@
   <div class="card">
     <div class="card-header">Add Discussion</div>
     <div class="card-body">
-      <form action="{{ route('discussions.store') }}" method="post">
+      <form ic-post-to="{{ route('discussions.store') }}" method="post">
         @csrf
         <div class="form-group">
           <label for="title">Title</label>
@@ -37,4 +37,5 @@
 
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intercooler-js/1.2.2/intercooler.min.js" charset="utf-8"></script>
 @endpush

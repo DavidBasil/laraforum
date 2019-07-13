@@ -5,6 +5,7 @@ namespace LaraForum\Http\Controllers;
 use Illuminate\Http\Request;
 use LaraForum\Http\Requests\CreateDiscussionRequest;
 use LaraForum\Discussion;
+use LaraForum\Channel;
 
 class DiscussionsController extends Controller
 {
@@ -43,7 +44,8 @@ class DiscussionsController extends Controller
         auth()->user()->discussions()->create([
             'title' => $request->title,
             'content' => $request->content,
-            'channel_id' => $request->channel
+            'channel_id' => $request->channel,
+            'slug' => str_slug($request->title)
         ]);
 
         return redirect()->route('discussions.index')

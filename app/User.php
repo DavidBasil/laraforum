@@ -5,7 +5,7 @@ namespace LaraForum;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Discussion;
+use LaraForum\Discussion;
 
 class User extends Authenticatable
 {
