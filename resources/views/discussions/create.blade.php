@@ -37,5 +37,4 @@
 
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intercooler-js/1.2.2/intercooler.min.js" charset="utf-8"></script>
 @endpush
