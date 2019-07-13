@@ -72,45 +72,49 @@
       </div>
     </nav>
 
-    @auth
 
+
+
+    @if (!in_array(request()->path(), ['login', 'register', 'password/email', 'password-reset']))
       <main class="py-4 container">
-        <div class="row">
-          <div class="col-md-4">
-
+      <div class="row">
+        <div class="col-md-4">
+          @auth
             <a href="{{ route('discussions.create') }}" 
-              class="btn btn-info text-white mb-2 w-100">Add new discussion</a>
-            <div class="card">
-              <div class="card-header">Channels</div>
-              <div class="card-body">
-                <ul class="list-group">
-                  @foreach ($channels as $channel)
-                    <li class="list-group-item">{{ $channel->name }}</li> 
-                  @endforeach
-                </ul>
-              </div>
-            </div>
+               class="btn btn-info text-white mb-2 w-100">Add new discussion</a>  
+             @else
+               <a href="{{ route('login') }}" 
+                  class="btn btn-info text-white mb-2 w-100"><small>Sign in to add Discussion</small></a>
+                @endauth
+                <div class="card">
+                  <div class="card-header">Channels</div>
+                  <div class="card-body">
+                    <ul class="list-group">
+                      @foreach ($channels as $channel)
+                        <li class="list-group-item">{{ $channel->name }}</li> 
+                      @endforeach
+                    </ul>
+                  </div>
+                </div>
 
 
-          </div>
-          <div class="col-md-8">
-            @yield('content')
-          </div>
         </div>
+        <div class="col-md-8">
+          @yield('content')
+        </div>
+      </div>
       </main>
 
     @else
-
-      <main class="py-4">
+      <main>
       @yield('content')
       </main>
-
-    @endauth
+    @endif
 
   </div>
 
-<!-- scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
-@stack('js')
+  <!-- scripts -->
+  <script src="{{ asset('js/app.js') }}"></script>
+  @stack('js')
 </body>
 </html>
