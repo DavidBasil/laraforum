@@ -19,10 +19,11 @@
     </div>
     <div class="card-body">
       @auth
-        <form action="" method="post">
+        <form action="" method="post" class="text-center">
           @csrf
           <input type="hidden" name="reply" id="reply">
           <trix-editor></trix-editor>
+          <button type="submit" class="btn btn-success mt-2 w-75">Add reply</button>
         </form>
       @else
         <a href="" class="btn btn-info text-white">Sign in to add a reply</a>
