@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use LaraForum\Discussion;
 
 class NewReplyAdded extends Notification
 {
@@ -31,7 +32,7 @@ class NewReplyAdded extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -57,7 +58,7 @@ class NewReplyAdded extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'discussion' => $this->discussion
         ];
     }
 }
