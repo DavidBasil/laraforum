@@ -99,7 +99,7 @@ class DiscussionsController extends Controller
         //
     }
 
-    public function reply(Discussion $discusstion, Reply $reply)
+    public function reply(Discussion $discussion, Reply $reply)
     {
         $discussion->markAsBestReply($reply);
         return redirect()->back()->with('success', 'Marked as best reply');

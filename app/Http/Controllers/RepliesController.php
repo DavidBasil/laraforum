@@ -5,6 +5,7 @@ namespace LaraForum\Http\Controllers;
 use Illuminate\Http\Request;
 use LaraForum\Http\Requests\CreateReplyRequest;
 use LaraForum\Discussion;
+use LaraForum\Notifications\NewReplyAdded;
 
 class RepliesController extends Controller
 {
@@ -40,6 +41,8 @@ class RepliesController extends Controller
             'content' => $request->content,
             'discussion_id' => $discussion->id
         ]);
+
+        $discussion->author->notify(new NewReplyAdded($discussion));
 
         return redirect()->back()->with('success', 'Reply Added');
     }

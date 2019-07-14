@@ -10,6 +10,24 @@
       </div>
       <hr>
       {!! $discussion->content !!}
+       @if ($discussion->bestReply)
+         <div class="card bg-success text-white">
+           <div class="card-header p-1">
+             <div class="d-flex justify-content-between">
+               <div>
+                 <img src="{{ Gravatar::src($discussion->bestReply->owner->email) }}" alt="" class="h-50">
+                 <strong>{{ $discussion->bestReply->owner->name }}</strong>
+               </div>
+               <div>
+                 Best Reply
+               </div>
+             </div>
+           </div>
+           <div class="card-body">
+             {!! $discussion->bestReply->content !!}
+           </div>
+         </div>
+       @endif
     </div>
   </div>  
 
@@ -23,7 +41,12 @@
            <span class="ml-2">{{ $reply->owner->name }}</span>
          </div>
          <div>
-           <button type="submit" class="btn btn-sm btn-danger">mark as best</button>
+           @if (auth()->user()->id == $discussion->user_id)
+             <form action="{{ route('discussions.best-reply', ['discussion' => $discussion->slug, 'reply' => $reply->id]) }}" method="post">
+               @csrf
+               <button type="submit" class="btn btn-sm btn-danger">mark as best</button>
+             </form>
+           @endif
          </div>
        </div>
      </div>
