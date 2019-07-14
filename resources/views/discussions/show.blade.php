@@ -19,7 +19,7 @@
     </div>
     <div class="card-body">
       @auth
-        <form action="" method="post" class="text-center">
+        <form action="{{ route('replies.store', $discussion->slug) }}" method="post" class="text-center">
           @csrf
           <input type="hidden" name="reply" id="reply">
           <trix-editor></trix-editor>
