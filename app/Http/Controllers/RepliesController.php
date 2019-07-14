@@ -3,6 +3,8 @@
 namespace LaraForum\Http\Controllers;
 
 use Illuminate\Http\Request;
+use LaraForum\Http\Requests\CreateReplyRequest;
+use LaraForum\Discussion;
 
 class RepliesController extends Controller
 {
@@ -32,9 +34,14 @@ class RepliesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateReplyRequest $request, Discussion $discussion)
     {
-        //
+        auth()->user()->replies()->create([
+            'content' => $request->content,
+            'discussion_id' => $discussion->id
+        ]);
+
+        return redirect()->back()->with('success', 'Reply Added');
     }
 
     /**
