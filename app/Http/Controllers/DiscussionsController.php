@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use LaraForum\Http\Requests\CreateDiscussionRequest;
 use LaraForum\Discussion;
 use LaraForum\Channel;
+use LaraForum\Reply;
 
 class DiscussionsController extends Controller
 {
@@ -96,5 +97,11 @@ class DiscussionsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function reply(Discussion $discusstion, Reply $reply)
+    {
+        $discussion->markAsBestReply($reply);
+        return redirect()->back()->with('success', 'Marked as best reply');
     }
 }
