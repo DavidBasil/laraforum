@@ -3,6 +3,7 @@
 namespace LaraForum;
 use LaraForum\User;
 use LaraForum\Reply;
+use LaraForum\Notifications\ReplyMarkedAsBest;
 
 /* use Illuminate\Database\Eloquent\Model; */
 
@@ -33,5 +34,7 @@ class Discussion extends Model
         $this->update([
             'reply_id' => $reply->id
         ]);
+
+        $reply->owner->notify(new ReplyMarkedAsBest($reply->discussion));
     }
 }
