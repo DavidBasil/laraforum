@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LaraForum\Discussion;
+use LaraForum\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -44,5 +45,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function replies(){
         return $this->hasMany(Reply::class);
+    }
+
+    public function sendEmailVerificationNotification(){
+        $this->notify(new VerifyEmail());
     }
 }
