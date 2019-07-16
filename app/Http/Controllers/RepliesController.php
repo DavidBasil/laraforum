@@ -42,7 +42,10 @@ class RepliesController extends Controller
             'discussion_id' => $discussion->id
         ]);
 
-        $discussion->author->notify(new NewReplyAdded($discussion));
+        if($discussion->author->id != auth()->user()->id){
+            $discussion->author->notify(new NewReplyAdded($discussion));
+        }
+
 
         return redirect()->back()->with('success', 'Reply Added');
     }

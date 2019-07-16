@@ -3,6 +3,7 @@
 namespace LaraForum;
 use LaraForum\User;
 use LaraForum\Reply;
+use LaraForum\Channel;
 use LaraForum\Notifications\ReplyMarkedAsBest;
 
 /* use Illuminate\Database\Eloquent\Model; */
@@ -35,6 +36,23 @@ class Discussion extends Model
             'reply_id' => $reply->id
         ]);
 
+        if($reply->owner->id === $this->author->id){
+            return;
+        }
+
         $reply->owner->notify(new ReplyMarkedAsBest($reply->discussion));
+    }
+
+    public function scopeFilterByChannels($builder)
+    {
+        if(request()->query('channel')){
+            $channel = Channel::where('slug', request()->query('channel'))->first();
+            if($channel){
+                return $builder->where('channel_id', $channel->id);
+            }
+            return $builder;
+        }
+
+        return $builder;
     }
 }
