@@ -12,6 +12,10 @@
            <strong>{{ $notification->data['discussion']['slug'] }}</strong>
            <a href="{{ route('discussions.show', $notification->data['discussion']['slug']) }}" class="btn btn-sm btn-info text-white float-right">View Discussion</a>
           @endif
+          @if ($notification->type === 'LaraForum\Notifications\ReplyMarkedAsBest')
+            Your reply to the discussion <strong>{{ $notification->data['discussion']['title'] }} </strong> 
+           <a href="{{ route('discussions.show', $notification->data['discussion']['slug']) }}" class="btn btn-sm btn-info text-white float-right">View Discussion</a>
+          @endif
         </li>
       @endforeach
       </ul>
