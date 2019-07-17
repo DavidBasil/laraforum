@@ -7,10 +7,12 @@
       @include('partials.discussion-header')
       <div class="card-body">
         <div class="text-center font-weight-bold">
-        <h4>{{ $discussion->title }}</h4>
+        <h5>{{ $discussion->title }}</h5>
         </div>
+       <a href="{{ route('discussions.show', $discussion->slug) }}" class="stretched-link"></a>
       </div>
     </div>  
+    <hr>
   @endforeach
 
   {{ $discussions->appends(['channel' => request()->query('channel')])->links() }}

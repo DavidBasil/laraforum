@@ -2,19 +2,22 @@
 
 @section('content')
   <div class="card">
-    <div class="card-header">Notifications</div>
+    <div class="card-header bg-dark text-white h5">Notifications</div>
     <div class="card-body">
       <ul class="list-group">
       @foreach ($notifications as $notification)
         <li class="list-group-item">
           @if ($notification->type === 'LaraForum\Notifications\NewReplyAdded')
            A new reply was added to your discussion
+           <a href="{{ route('discussions.show', $notification->data['discussion']['slug']) }}" class="card-link">
            <strong>{{ $notification->data['discussion']['slug'] }}</strong>
-           <a href="{{ route('discussions.show', $notification->data['discussion']['slug']) }}" class="btn btn-sm btn-info text-white float-right">View Discussion</a>
+           </a>
           @endif
           @if ($notification->type === 'LaraForum\Notifications\ReplyMarkedAsBest')
-            Your reply to the discussion <strong>{{ $notification->data['discussion']['title'] }} </strong> 
-           <a href="{{ route('discussions.show', $notification->data['discussion']['slug']) }}" class="btn btn-sm btn-info text-white float-right">View Discussion</a>
+            Your reply to the discussion
+           <a href="{{ route('discussions.show', $notification->data['discussion']['slug']) }}" class="card-link">
+             <strong>{{ $notification->data['discussion']['title'] }} </strong> 
+           </a>
           @endif
         </li>
       @endforeach

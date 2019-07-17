@@ -21,7 +21,7 @@
 </head>
 <body>
   <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
           {{ config('app.name', 'Laravel') }}
@@ -33,18 +33,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav mr-auto">
-            @auth
             <li class="nav-item">
-              <a href="{{ route('users.notifications') }}" class="nav-link">
-                <span class="badge badge-info text-white">
-                  {{ auth()->user()->unreadNotifications->count() }}
-                  Unread Notifications
-                </span>
-              </a>
-            </li>  
-            @endauth
-            <li class="nav-item">
-              <a href="{{ route('discussions.index') }}" class="nav-link">Discussions</a>
+              <a href="{{ route('discussions.index') }}" class="nav-link btn btn-outline-primary text-white">Discussions</a>
             </li>
           </ul>
 
@@ -53,14 +43,22 @@
             <!-- Authentication Links -->
             @guest
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <a class="nav-link btn btn-primary text-white btn-sm text-uppercase mr-2" href="{{ route('login') }}">{{ __('Login') }}</a>
               </li>
               @if (Route::has('register'))
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                  <a class="nav-link btn btn-primary btn-sm text-uppercase text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                 </li>
               @endif
             @else
+            <li class="nav-item">
+              <a href="{{ route('users.notifications') }}" class="nav-link">
+                <span class="badge badge-info text-white">
+                  {{ auth()->user()->unreadNotifications->count() }}
+                  Notifications
+                </span>
+              </a>
+            </li>  
               <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                   {{ Auth::user()->name }} <span class="caret"></span>
@@ -87,24 +85,24 @@
 
 
 
-    @if (!in_array(request()->path(), ['login', 'register', 'password/email', 'password-reset']))
+    @if (!in_array(request()->path(), ['login', 'register', 'password/email', 'password-reset', '/']))
       <main class="py-4 container">
       <div class="row">
         <div class="col-md-4">
           @auth
             <a href="{{ route('discussions.create') }}" 
-               class="btn btn-info text-white mb-2 w-100">Add new discussion</a>  
+               class="btn btn-outline-primary mb-2 w-100">Add new discussion</a>  
              @else
                <a href="{{ route('login') }}" 
-                  class="btn btn-info text-white mb-2 w-100"><small>Sign in to add Discussion</small></a>
+                  class="btn btn-outline-primary  mb-2 w-100"><small class="h6">Sign in to add Discussion</small></a>
                 @endauth
                 <div class="card">
-                  <div class="card-header">Channels</div>
+                  <div class="card-header bg-dark text-white">Channels</div>
                   <div class="card-body">
-                    <ul class="list-group">
+                    <ul class="list-group list-group-flush">
                       @foreach ($channels as $channel)
                         <li class="list-group-item">
-                          <a href="{{ route('discussions.index') }}?channel={{ $channel->slug }}">{{ $channel->name }}</a>
+                          <a href="{{ route('discussions.index') }}?channel={{ $channel->slug }}" class="text-info font-weight-bold nav-link">{{ $channel->name }} <span class="h4">&rarr;</span></a>
                         </li> 
                       @endforeach
                     </ul>
@@ -113,14 +111,14 @@
 
 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 animated fadeIn">
           @yield('content')
         </div>
       </div>
       </main>
 
     @else
-      <main>
+      <main class="animated fadeIn">
       @yield('content')
       </main>
     @endif
