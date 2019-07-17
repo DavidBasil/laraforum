@@ -9,12 +9,17 @@
         @csrf
         <div class="form-group">
           <label for="title"><h5>Title</h5></label>
+          @error('title')
+          <p class="text-danger">{{ $message }}</p>
+          @enderror
           <input type="text" name="title" class="form-control">
         </div>
         <div class="form-group">
           <label for="content"><h5>Content</h5></label>
-            <input id="content" type="hidden" name="content">
-            <trix-editor input="content"></trix-editor>
+          @error('content')
+          <p class="text-danger">{{ $message }}</p>
+          @enderror
+          <textarea name="content" rows="6" cols="40" class="form-control"></textarea>
         </div>
         <div class="form-group">
           <label for="channel"><h5>Channel</h5></label>
@@ -32,9 +37,7 @@
 @endsection
 
 @push('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.css" type="text/css">
 @endpush
 
 @push('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>  
 @endpush
